@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  latitude: MyString
+  longitude: MyString
+  sent_at: 2018-05-27 21:07:12
+  vehicle_identifier: MyString
+
+two:
+  latitude: MyString
+  longitude: MyString
+  sent_at: 2018-05-27 21:07:12
+  vehicle_identifier: MyString
