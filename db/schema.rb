@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180528010711) do
 
-  create_table "cordinates", force: :cascade do |t|
-    t.string "latitude"
-    t.string "longitude"
-    t.datetime "sent_at"
-    t.string "vehicle_identifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "gps", force: :cascade do |t|
     t.string "latitude"
     t.string "longitude"
