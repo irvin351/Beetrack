@@ -2,17 +2,33 @@ module Api
     module V1
         class GpsController < ActionController::Base
         	def index
-        		gps = Gps.order('created_at DESC');
-        		render json: {status: 'SUCCESS', message:'Coordenadas Cargadas', data: gps},status: :ok
+        		#gps = Gps.order('created_at DESC');
+        		render status: :forbidden, text: "You do not have access to this page."
 			end
 
 			def create	
-				gps = Gps.new(gps_params)
-				if gps.save
-					render json: {status: 'SUCCESS', message:'Coordenadas Guardadas', data:gps},status: :ok
-				else
-					render json: {status: 'ERROR', message:'Coordenadas no Guardadas', data:gps.erros},status: :unprocessable_entity
-				end			
+				@array = []
+				if params[:_json]
+					@params = params[:_json]
+				else 
+					@params = [params]
+				end
+
+					@params.each_with_index do |value,key|
+					new_params = value.permit(:latitude, :longitude, :sent_at , :vehicle_identifier)	
+
+					 new_params.permit(:gps).permitted?	
+				      gps = Gps.new(new_params)
+
+				      if gps.save
+				      	@array.push({status: 'SUCCESS', message:'COORDENADAS GUARDADAS', data: gps },status: :ok)
+					  else
+					  	@array.push({status: 'ERROR', message:'COORDENADAS NO GUARDADAS', data: gps.erros },status: :unprocessable_entity)
+					  end	
+
+				    end
+				
+				render json: @array
 			end
 
 			def show
